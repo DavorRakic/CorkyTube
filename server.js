@@ -1,17 +1,52 @@
 const express = require('express');
+const session = require('express-session');
 const sqlite3 = require('sqlite3').verbose();
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const path = require('path');
 const https = require('https');
-
+// *************************************
 const app = express();
-app.get('/', (req, res) => {
-  res.sendStatus(200);
-});
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'public')));
+// *************************************
+
+app.use(session({
+  secret: 'your-secret-key',
+  resave: false,
+  saveUninitialized: true
+}));
+
+// Serve login page
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, 'login.html'));
+});
+
+// Protect index.html
+app.get('/index.html', (req, res) => {
+  if (req.session && req.session.authenticated) {
+    res.sendFile(path.join(__dirname, 'index.html'));
+  } else {
+    res.redirect('/');
+  }
+});
+
+// Handle login
+app.post('/login', express.urlencoded({ extended: true }), (req, res) => {
+  const { username, password } = req.body;
+  const admins = JSON.parse(process.env.ADMINS_LIST || '[]');
+
+  const validUser = admins.find(admin => admin.username === username && admin.password === password);
+
+  if (validUser) {
+    req.session.authenticated = true;
+    res.redirect('/index.html');
+  } else {
+    res.send('Invalid credentials');
+  }
+});
+// ********************************
 
 const JWT_SECRET = 'your_super_secret_key';
 
