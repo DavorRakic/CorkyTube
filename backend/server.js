@@ -11,8 +11,11 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'public')));
 
 const JWT_SECRET = 'your_super_secret_key';
-const API_KEY = 'AIzaSyBu-4SjgJHVeM7BDCRQFN1BB8MsnnukHoA';
-const CHANNEL_ID = 'UCncqXlBMKtW2nbTkBKIVC4Q';
+
+require('dotenv').config();
+const API_KEY = process.env.GOOGLE_API_KEY;
+const CHANNEL_ID = process.env.YT_CHANNEL_ID;
+
 const saltRounds = 10;
 const TEMP_PASSWORD = 'CORkytUBE';
 

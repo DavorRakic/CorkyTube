@@ -107,9 +107,6 @@ document.addEventListener('DOMContentLoaded', () => {
             const data = await response.json();
             syncStatus.textContent = data.message;
             syncStatus.style.color = 'green';
-            // Optionally refresh dashboard data or last updated timestamp
-            // You might need to add a function to app.js/content.js to refresh these
-            // For now, just update the status message.
 
         } catch (err) {
             syncStatus.textContent = `Error: ${err.message}`;
