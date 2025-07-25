@@ -21,3 +21,13 @@ services:
     plan: free
     repo: https://github.com/DavorRakic/CorkyTube
     autoDeploy: true
+
+envVars:
+  - key: GOOGLE_API_KEY
+    value: AIzaSyBu-4SjgJHVeM7BDCRQFN1BB8MsnnukHoA
+  - key: YT_CHANNEL_ID
+    value: UCncqXlBMKtW2nbTkBKIVC4Q
+  - key: TEMP_PASSWORD
+    value: CORkytUBE
+  - key: ADMINS_LIST
+    value: '[{"username":"corky","password":"corky!"},{"username":"kico","password":"dr1962DR!"}]'

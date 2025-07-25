@@ -16,11 +16,11 @@ app.use(express.static(path.join(__dirname, 'public')));
 const JWT_SECRET = 'your_super_secret_key';
 
 require('dotenv').config();
-const API_KEY = process.env.GOOGLE_API_KEY;
-const CHANNEL_ID = process.env.YT_CHANNEL_ID;
+const API_KEY = JSON.parse(process.env.GOOGLE_API_KEY);
+const CHANNEL_ID = JSON.parse(process.env.YT_CHANNEL_ID);
 
 const saltRounds = 10;
-const TEMP_PASSWORD = 'CORkytUBE';
+const TEMP_PASSWORD = JSON.parse(process.env.TEMP_PASSWORD);
 
 // --- Database Setup ---
 const db = new sqlite3.Database('./corkytube.db', (err) => {
@@ -39,10 +39,8 @@ const db = new sqlite3.Database('./corkytube.db', (err) => {
         db.run(`CREATE TABLE IF NOT EXISTS online_users ( user_id INTEGER PRIMARY KEY, username TEXT NOT NULL, login_time TEXT NOT NULL)`);
 
         // Setup Admins
-        const admins = [
-            { username: 'corky', password: 'corky!' },
-            { username: 'kico', password: 'dr1962DR!' }
-        ];
+		const admins = JSON.parse(process.env.ADMINS_LIST);
+
         admins.forEach(admin => {
             bcrypt.hash(admin.password, saltRounds, (err, hash) => {
                 if (err) return;
