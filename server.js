@@ -17,7 +17,7 @@ const JWT_SECRET = 'your_super_secret_key';
 
 require('dotenv').config();
 const API_KEY = process.env.GOOGLE_API_KEY;
-const CHANNEL_ID = process.env.YT_CHANNEL_ID);
+const CHANNEL_ID = process.env.YT_CHANNEL_ID;
 
 const saltRounds = 10;
 const TEMP_PASSWORD = process.env.TEMP_PASSWORD);
