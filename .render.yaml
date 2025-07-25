@@ -1,0 +1,23 @@
+services:
+  - type: web
+    name: corkytube-backend
+    env: node
+    plan: free
+    buildCommand: npm install
+    startCommand: node server.js
+    envVars:
+      - key: GOOGLE_API_KEY
+        value: your_google_api_key_here
+      - key: YT_CHANNEL_ID
+        value: your_channel_id_here
+    autoDeploy: true
+    repo: https://github.com/DavorRakic/CorkyTube
+
+  - type: static
+    name: corkytube-frontend
+    buildCommand: ''
+    staticPublishPath: public
+    env: static
+    plan: free
+    repo: https://github.com/DavorRakic/CorkyTube
+    autoDeploy: true
