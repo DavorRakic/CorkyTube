@@ -7,7 +7,7 @@ const https = require('https');
 
 const app = express();
 app.get('/', (req, res) => {
-  res.send('Welcome to the homepage!');
+  res.sendStatus(200);
 });
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
