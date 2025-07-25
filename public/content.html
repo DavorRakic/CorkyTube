@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CorkyTube Content</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" href="logo.png" type="image/png">
+	<script src="https://kit.fontawesome.com/bec4682882.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    <header class="main-header">
+        <div class="logo-container">
+            <img src="logo.png" alt="CorkyTube Logo">
+            <h1>CorkyTube</h1>
+        </div>
+        <div class="last-updated">Synced: <span id="last-updated-value">--</span></div>
+        <nav class="main-nav">
+            <div id="user-session" class="user-menu"></div>
+        </nav>
+    </header>
+    <div id="online-users-dialog" class="dialog" style="display:none;">
+        <div class="dialog-content">
+            <span class="close-button">&times;</span>
+            <h2>Online Users</h2>
+            <ul id="online-users-list"></ul>
+        </div>
+    </div>
+    <div class="container">
+        <main class="content-main">
+            <div id="error-container" class="error-message" style="display:none;"></div>
+            <div class="content-layout">
+                <div class="sidebar-filters">
+                    <div class="content-filters">
+                        <div class="filter-header">
+                            <h3>Filters</h3>
+                            <div class="content-type-toggle">
+                                <button class="toggle-btn active" data-type="video" title="Videos">
+                                    <i class="fas fa-video"></i><span class="btn-text">Videos</span>
+                                </button>
+                                <button class="toggle-btn" data-type="short" title="Shorts">
+                                    <i class="fas fa-bolt"></i><span class="btn-text">Shorts</span>
+                                </button>
+                                <button class="toggle-btn" data-type="both" title="Both Videos & Shorts">
+                                    <i class="fas fa-layer-group"></i><span class="btn-text">Both</span>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="filter-group">
+                            <label for="general-filter">General</label>
+                            <select id="general-filter">
+                                <option value="newest">Newest</option>
+                                <option value="most_viewed">Most Viewed</option>
+                                <option value="most_liked">Most Liked</option>
+                                <option value="favorites">Favourites</option>
+                            </select>
+                        </div>
+                        <div class="filter-group">
+                            <label for="categories-filter">Categories</label>
+                            <select id="categories-filter">
+                                <option value="all">All Categories</option>
+                                <option value="Emerging">Emerging</option>
+                                <option value="Growing">Growing</option>
+                                <option value="Popular">Popular</option>
+                                <option value="Trending">Trending</option>
+                                <option value="Viral">Viral</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="content-filters">
+                        <div class="filter-header">
+                            <h3>Sort</h3>
+                        </div>
+                        <div class="filter-group sort-options-row">
+                            <select id="sort-by">
+                                <option value="published_at">Date</option>
+                                <option value="views">Views</option>
+                                <option value="likes">Likes</option>
+                                <option value="title">Title</option>
+                            </select>
+                            <div class="sort-direction-toggle">
+                                <button class="toggle-btn" data-direction="ASC" title="Ascending"><i class="fas fa-arrow-up"></i></button>
+                                <button class="toggle-btn active" data-direction="DESC" title="Descending"><i class="fas fa-arrow-down"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="content-filters">
+                        <div class="filter-header">
+                            <h3>Search</h3>
+                        </div>
+                        <div class="filter-group search-container">
+                            <input type="text" id="search-input" placeholder="Enter video title...">
+                            <button id="search-button" class="toggle-btn" title="Search"><i class="fas fa-search"></i></button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="content-display">
+                    <h3 id="content-table-title">Videos</h3>
+                    <div class="table-container">
+                        <table id="content-table">
+                            <thead>
+                                <tr>
+                                    <th>Thumbnail</th>
+                                    <th>Title</th>
+                                    <th>Views</th>
+                                    <th>Likes</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- Video rows will be inserted here -->
+                            </tbody>
+                        </table>
+                        <div class="table-pagination">
+                            <span id="table-info"></span>
+                            <div class="pagination-buttons">
+                                <button id="first-page" class="button" disabled><i class="fas fa-angle-double-left"></i></button>
+                                <button id="prev-page" class="button" disabled><i class="fas fa-angle-left"></i></button>
+                                <span id="page-info"></span>
+                                <button id="next-page" class="button" disabled><i class="fas fa-angle-right"></i></button>
+                                <button id="last-page" class="button" disabled><i class="fas fa-angle-double-right"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+    <script src="auth.js"></script>
+    <script src="content.js"></script>
+</body>
+</html>

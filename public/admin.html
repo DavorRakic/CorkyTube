@@ -1,0 +1,137 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin - CorkyTube</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" href="logo.png" type="image/png">
+    <script src="https://kit.fontawesome.com/bec4682882.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    <header class="main-header">
+        <div class="logo-container">
+            <img src="logo.png" alt="CorkyTube Logo">
+            <h1>CorkyTube</h1>
+        </div>
+        <div class="last-updated">Synced: <span id="last-updated-value">--</span></div>
+        <nav class="main-nav">
+            <div id="user-session" class="user-menu"></div>
+        </nav>
+    </header>
+    <div id="online-users-dialog" class="dialog" style="display:none;">
+        <div class="dialog-content">
+            <span class="close-button">&times;</span>
+            <h2>Online Users</h2>
+            <ul id="online-users-list"></ul>
+        </div>
+    </div>
+    <div class="container">
+        <main class="admin-main">
+            
+
+            <div class="admin-sections-container">
+                <!-- YouTube Sync Section -->
+                <div class="youtube-sync-container admin-section">
+                    <h3>YouTube Sync</h3>
+                    <p>Refresh all video and channel data from the YouTube API.</p>
+                    <button id="sync-youtube-btn" class="button">Sync YouTube Data</button>
+                    <p id="sync-status" style="display:none;"></p>
+                </div>
+
+                <!-- All Patreons Section -->
+                <div class="patreons-container admin-section">
+                    <div class="table-header">
+                        <h3>All Patreons</h3>
+                        <button id="edit-patreons-btn" class="button"><i class="fa-solid fa-edit"></i> Edit List</button>
+                    </div>
+                    <div id="patreons-display">
+                        <!-- Patreon usernames will be displayed here -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Users Table -->
+            <div class="table-container">
+                <div class="table-header">
+                    <h3>All Users</h3>
+                    <button id="add-user-btn" class="button"><i class="fa-solid fa-plus"></i> Add New</button>
+                </div>
+                <table id="users-table">
+                    <thead>
+                        <tr>
+                            <th>Username</th>
+                            <th>Role</th>
+                            <th>Password Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- User rows will be inserted here -->
+                    </tbody>
+                </table>
+            </div>
+
+        </main>
+
+        <!-- Add User Modal -->
+        <div id="add-user-dialog" class="dialog" style="display:none;">
+            <div class="dialog-content">
+                <span class="close-button">&times;</span>
+                <h2>Create New User</h2>
+                <form id="add-user-form">
+                    <div class="form-group">
+                        <label for="new-username">Username:</label>
+                        <input type="text" id="new-username" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="new-user-password">Password:</label>
+                        <input type="password" id="new-user-password" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="new-user-role">Role:</label>
+                        <select id="new-user-role" required>
+                            <option value="user">User</option>
+                            <option value="admin">Admin</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="button">Create User</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Edit Patreons Modal -->
+        <div id="edit-patreons-dialog" class="dialog" style="display:none;">
+            <div class="dialog-content">
+                <span class="close-button">&times;</span>
+                <h2>Edit Patreons</h2>
+                <form id="edit-patreons-form">
+                    <div class="form-group">
+                        <label for="patreons-textarea">Usernames (one per line):</label>
+                        <textarea id="patreons-textarea" rows="10"></textarea>
+                    </div>
+                    <button type="submit" class="button">Save Changes</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Reset Password Modal -->
+        <div id="reset-password-dialog" class="dialog" style="display:none;">
+            <div class="dialog-content">
+                <span class="close-button">&times;</span>
+                <h2>Reset Password for <span id="reset-username"></span></h2>
+                <form id="reset-password-form">
+                    <div class="form-group">
+                        <label for="new-password">New Temporary Password:</label>
+                        <input type="password" id="new-password" required>
+                    </div>
+                    <button type="submit" class="button">Set Password</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <script src="auth.js"></script>
+    <script src="admin.js"></script>
+</body>
+</html>

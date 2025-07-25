@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Settings - CorkyTube</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" href="logo.png" type="image/png">
+    <script src="https://kit.fontawesome.com/bec4682882.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    <header class="main-header">
+        <div class="logo-container">
+            <img src="logo.png" alt="CorkyTube Logo">
+            <h1>CorkyTube</h1>
+        </div>
+        <div class="last-updated">Synced: <span id="last-updated-value">--</span></div>
+        <nav class="main-nav">
+            <div id="user-session" class="user-menu"></div>
+        </nav>
+    </header>
+    <div class="container">
+        <main class="settings-main">
+            <h2>User Settings</h2>
+            <div id="user-info">
+                <p><strong>Username:</strong> <span id="username"></span></p>
+                <p><strong>Role:</strong> <span id="role"></span></p>
+            </div>
+
+            <h3>Change Password</h3>
+            <form id="change-password-form">
+                <div class="form-group">
+                    <label for="current-password">Current Password:</label>
+                    <input type="password" id="current-password" required>
+                </div>
+                <div class="form-group">
+                    <label for="new-password">New Password:</label>
+                    <input type="password" id="new-password" required>
+                </div>
+                <div class="form-group">
+                    <label for="confirm-password">Confirm New Password:</label>
+                    <input type="password" id="confirm-password" required>
+                </div>
+                <button type="submit" class="button">Change Password</button>
+            </form>
+            <p id="change-password-status" style="display:none;"></p>
+        </main>
+    </div>
+    <script src="auth.js"></script>
+    <script src="settings.js"></script>
+</body>
+</html>

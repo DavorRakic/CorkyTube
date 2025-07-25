@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CorkyTube Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" href="logo.png" type="image/png">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://kit.fontawesome.com/bec4682882.js" crossorigin="anonymous"></script> 
+</head>
+<body>
+    <header class="main-header">
+        <div class="logo-container">
+            <img src="logo.png" alt="CorkyTube Logo">
+            <h1>CorkyTube</h1>
+        </div>
+        <div class="last-updated">Synced: <span id="last-updated-value">--</span></div>
+        <nav class="main-nav">
+            <div id="user-session" class="user-menu"></div>
+        </nav>
+    </header>
+    <div id="online-users-dialog" class="dialog" style="display:none;">
+        <div class="dialog-content">
+            <span class="close-button">&times;</span>
+            <h2>Online Users</h2>
+            <ul id="online-users-list"></ul>
+        </div>
+    </div>
+    <div class="container">
+        <main class="dashboard-main">
+            <div id="error-container" class="error-message" style="display:none;"></div>
+            <section class="stats-overview">
+                <div class="stat-card">
+                    <h3>Subscribers</h3>
+                    <p id="subscribers-count">--</p>
+                </div>
+                <div class="stat-card">
+                    <h3>Videos</h3>
+                    <p id="total-videos-count">--</p>
+                </div>
+                <div class="stat-card">
+                    <h3>Shorts</h3>
+                    <p id="total-shorts-count">--</p>
+                </div>
+                <div class="stat-card">
+                    <h3>Views</h3>
+                    <p id="total-views-count">--</p>
+                </div>
+                <div class="stat-card">
+                    <h3>Likes</h3>
+                    <p id="total-likes-count">--</p>
+                </div>
+            </section>
+
+            <section class="chart-section">
+                <div class="chart-legend">
+                    <h3>Categories</h3>
+                    <ul>
+                        <li><span class="legend-color emerging"></span> Emerging (1-1000 views)</li>
+                        <li><span class="legend-color growing"></span> Growing (1001-2500 views)</li>
+                        <li><span class="legend-color popular"></span> Popular (2501-5000 views)</li>
+                        <li><span class="legend-color trending"></span> Trending (5001-10000 views)</li>
+                        <li><span class="legend-color viral"></span> Viral (10001+ views)</li>
+                    </ul>
+                </div>
+                <div class="chart-container">
+                    <h3>Videos</h3>
+                    <canvas id="videosPieChart"></canvas>
+                </div>
+                <div class="chart-container">
+                    <h3>Shorts</h3>
+                    <canvas id="shortsPieChart"></canvas>
+                </div>
+            </section>
+        </main>
+    </div>
+    <script src="auth.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
