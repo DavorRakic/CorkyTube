@@ -39,7 +39,13 @@ const db = new sqlite3.Database('./corkytube.db', (err) => {
         db.run(`CREATE TABLE IF NOT EXISTS online_users ( user_id INTEGER PRIMARY KEY, username TEXT NOT NULL, login_time TEXT NOT NULL)`);
 
         // Setup Admins
-		const admins = JSON.parse(process.env.ADMINS_LIST);
+		//const admins = JSON.parse(process.env.ADMINS_LIST);
+		let admins = [];
+		try {
+		  admins = JSON.parse(process.env.ADMINS_LIST || '[]');
+		} catch (err) {
+		  console.error('Failed to parse ADMINS_LIST:', err);
+		}
 
         admins.forEach(admin => {
             bcrypt.hash(admin.password, saltRounds, (err, hash) => {
