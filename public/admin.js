@@ -100,8 +100,17 @@ document.addEventListener('DOMContentLoaded', () => {
             });
 
             if (!response.ok) {
-                const errorData = await response.json();
-                throw new Error(errorData.message || 'Failed to sync YouTube data.');
+                let errorMessage = 'Failed to sync YouTube data.';
+				try {
+					const errorData = await response.json();
+					if (errorData && typeof errorData.message === 'string') {
+						errorMessage = errorData.message;
+					}
+				} catch (jsonErr) {
+					const errorText = await response.text();
+					errorMessage = `Server error: ${errorText}`;
+				}
+				throw new Error(errorMessage);
             }
 
             const data = await response.json();

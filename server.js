@@ -54,6 +54,9 @@ require('dotenv').config();
 const API_KEY = process.env.GOOGLE_API_KEY;
 const CHANNEL_ID = process.env.YT_CHANNEL_ID;
 
+console.log('API Key:', apiKey);
+console.log('Channel ID:', channelId);
+
 const saltRounds = 10;
 const TEMP_PASSWORD = process.env.TEMP_PASSWORD;
 
