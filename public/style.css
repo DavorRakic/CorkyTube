@@ -206,7 +206,7 @@ body {
 
 .chart-legend h3 {
     margin-top: 0;
-    color: #007bff;
+    color: #918863;
     border-bottom: 1px solid #eee;
     padding-bottom: 10px;
     margin-bottom: 15px;
@@ -255,7 +255,7 @@ body {
 
 .chart-container h3 {
     margin-top: 0;
-    color: #007bff;
+    color: #918863;
     margin-bottom: 15px;
 }
 
@@ -433,12 +433,12 @@ body {
 }
 
 .video-stats i {
-    color: #007bff;
+    color: #918863;
 }
 
 /* Admin Page Specific */
 .admin-main h2 {
-    color: #007bff;
+    color: #918863;
     margin-bottom: 20px;
     border-bottom: 1px solid #eee;
     padding-bottom: 10px;
@@ -494,11 +494,11 @@ body {
     border: 1px solid darkblue;
 }
 
-.form-container h3, .youtube-sync-container h3, .table-container .table-header h3 {
-    color: #007bff;
+.form-container h3, .youtube-sync-container h3, .table-container .table-header h3, .admin-section .table-header h3 {
+    color: #918863;
     margin-top: 0;
     margin-bottom: 0; /* Remove margin from h3 inside flex container */
-}
+} 
 
 .table-header {
     display: flex;
@@ -528,7 +528,7 @@ body {
 }
 
 .button {
-    background-color: #007bff;
+    background-color: #918863;
     color: white;
     padding: 10px 20px;
     border: none;
@@ -539,7 +539,7 @@ body {
 }
 
 .button:hover {
-    background-color: #0056b3;
+    background-color: #5e583d;
 }
 
 .button:disabled {
@@ -657,12 +657,12 @@ body {
 }
 
 .content-display h3 {
-    color: #007bff;
+    color: #918863;
     margin-bottom: 4px;
     text-align: center;
     border: 1px solid black;
     border-radius: 8px;
-    background-color: #e6d2c1;
+    background-color: #fcf4f0;  
 }
 
 #content-table th:first-child,
@@ -702,7 +702,7 @@ body {
 }
 
 #content-table .action-btn:hover {
-    color: #007bff;
+    color: #918863;
 }
 
 #content-table .action-btn.favorited {
@@ -750,9 +750,8 @@ body {
     border: 1px solid darkred;
     margin: 0 5px; /* Creates 10px margin between buttons */
 }
-
 .table-container .actions .delete-btn {
-    color: red;
+    color: darkred;
 }
 
 .table-container .actions .toggle-btn:disabled {
