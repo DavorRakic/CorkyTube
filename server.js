@@ -350,10 +350,13 @@ app.post('/api/sync-youtube', authenticateToken, isAdmin, async (req, res) => {
 				const seconds = match[3] ? parseInt(match[3]) : 0;
 				const isShort = minutes === 0 && seconds <= 60;
 				
-                let cleanedTitle = video.snippet.title;
-                if (isShort) {
-                    cleanedTitle = cleanedTitle.replace(/#\w+/g, '').replace(/\s+/g, ' ').trim(); // Remove hashtags and normalize spaces
-                }
+                /*let cleanedTitle = video.snippet.title;
+                  if (isShort) {
+                      cleanedTitle = cleanedTitle.replace(/#\w+/g, '').replace(/\s+/g, ' ').trim(); // Remove hashtags and normalize spaces
+                  }
+				*/
+				let cleanedTitle = video.snippet.title.replace(/#\w+/g, '').replace(/\s+/g, ' ').trim();
+				
                 stmt.run(
                     video.id,
                     cleanedTitle,
