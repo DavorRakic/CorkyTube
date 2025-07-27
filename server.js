@@ -348,7 +348,7 @@ app.post('/api/sync-youtube', authenticateToken, isAdmin, async (req, res) => {
 				const match = durationISO.match(/PT(\d+H)?(\d+M)?(\d+S)?/);
 				const minutes = match[2] ? parseInt(match[2]) : 0;
 				const seconds = match[3] ? parseInt(match[3]) : 0;
-				const isShort = minutes === 0 && seconds <= 60;
+				const isShort = minutes === 1 || (minutes === 0 && seconds <= 60);
 				
                 /*let cleanedTitle = video.snippet.title;
                   if (isShort) {
