@@ -337,7 +337,12 @@ app.post('/api/sync-youtube', authenticateToken, isAdmin, async (req, res) => {
             
             allVideos.forEach(video => {
                 console.log(`Processing video: ${video.id} - ${video.snippet.title}`);
-                const isShort = video.contentDetails.duration.includes('M') ? false : true; // Simple check
+				if (!video.contentDetails || !video.contentDetails.duration) {
+					console.warn(`Missing duration for video ${video.id}`);
+				}
+				if (!video.contentDetails || !video.contentDetails.duration) return;
+                const duration = video.contentDetails?.duration || '';
+				const isShort = duration.includes('M') ? false : true; // Simple check
                 let cleanedTitle = video.snippet.title;
                 if (isShort) {
                     cleanedTitle = cleanedTitle.replace(/#\w+/g, '').replace(/\s+/g, ' ').trim(); // Remove hashtags and normalize spaces

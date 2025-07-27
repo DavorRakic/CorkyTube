@@ -114,8 +114,9 @@ document.addEventListener('DOMContentLoaded', () => {
             }
 
             const data = await response.json();
-            syncStatus.textContent = data.message;
-            syncStatus.style.color = 'green';
+			const message = typeof data.message === 'string' ? data.message : 'YouTube sync completed.';
+			syncStatus.textContent = message;
+			syncStatus.style.color = 'green';
 
         } catch (err) {
             syncStatus.textContent = `Error: ${err.message}`;
