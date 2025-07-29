@@ -8,13 +8,6 @@ services:
     disk:
       name: corkytube-disk
       mounthPath: /var/data
-    envVars:
-      - key: GOOGLE_API_KEY
-        value: your_google_api_key_here
-      - key: YT_CHANNEL_ID
-        value: your_channel_id_here
-      - key: SESSION_SECRET
-      - value: your_session_secret_here
     autoDeploy: true
     repo: https://github.com/DavorRakic/CorkyTube
 

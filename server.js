@@ -65,14 +65,14 @@ require('dotenv').config();
 const API_KEY = process.env.GOOGLE_API_KEY;
 const CHANNEL_ID = process.env.YT_CHANNEL_ID;
 
-console.log('API Key:', API_KEY);
-console.log('Channel ID:', CHANNEL_ID);
+//console.log('API Key:', 'API_KEY');
+//console.log('Channel ID:', 'CHANNEL_ID');
 
 const saltRounds = 10;
 const TEMP_PASSWORD = process.env.TEMP_PASSWORD;
 
 // --- Database Setup ---
-const db = new sqlite3.Database(dbPath , (err) => {
+const db = new sqlite3.Database('./corkytube.db' , (err) => {
     if (err) {
         return console.error('Error opening database', err.message);
     }
