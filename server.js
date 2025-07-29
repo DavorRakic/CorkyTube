@@ -72,7 +72,7 @@ const saltRounds = 10;
 const TEMP_PASSWORD = process.env.TEMP_PASSWORD;
 
 // --- Database Setup ---
-const db = new sqlite3.Database('/var/data/corkytube.db', (err) => {
+const db = new sqlite3.Database(dbPath , (err) => {
     if (err) {
         return console.error('Error opening database', err.message);
     }
