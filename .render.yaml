@@ -4,11 +4,7 @@ services:
     env: node
     plan: starter
     buildCommand: npm install
-    startCommand: |
-  if [ ! -f /var/data/corkytube.db ]; then
-    cp ./seed/corkytube.db /var/data/corkytube.db
-  fi
-  node server.js
+    startCommand: node server.js
     disk:
       name: corkytube-disk
       mounthPath: /var/data
