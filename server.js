@@ -50,7 +50,7 @@ app.post('/login', express.urlencoded({ extended: true }), (req, res) => {
 
   const validUser = admins.find(admin => admin.username === username && admin.password === password);
 
-  if (validUser || username === 'guest' {
+  if (validUser || username === 'guest') {
     req.session.authenticated = true;
     res.redirect('/index.html');
   } else {
