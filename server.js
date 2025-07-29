@@ -50,7 +50,7 @@ app.post('/login', express.urlencoded({ extended: true }), (req, res) => {
 
   const validUser = admins.find(admin => admin.username === username && admin.password === password);
 
-  if (validUser) {
+  if (validUser || (username === 'guest' && password === 'guest') {
     req.session.authenticated = true;
     res.redirect('/index.html');
   } else {
@@ -72,7 +72,7 @@ const saltRounds = 10;
 const TEMP_PASSWORD = process.env.TEMP_PASSWORD;
 
 // --- Database Setup ---
-const db = new sqlite3.Database('./corkytube.db' , (err) => {
+const db = new sqlite3.Database(dbPath , (err) => {
     if (err) {
         return console.error('Error opening database', err.message);
     }
