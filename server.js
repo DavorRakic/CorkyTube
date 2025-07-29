@@ -4,6 +4,7 @@ const sqlite3 = require('sqlite3').verbose();
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const path = require('path');
+const dbPath = '/var/data/corkytube.db';
 const https = require('https');
 // *************************************
 const app = express();
