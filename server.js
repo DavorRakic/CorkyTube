@@ -1,5 +1,6 @@
 const express = require('express');
 const session = require('express-session');
+const SQLiteStore = require('connect-sqlite3')(session);
 const sqlite3 = require('sqlite3').verbose();
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
@@ -14,9 +15,18 @@ app.use(express.static(path.join(__dirname, 'public')));
 // *************************************
 
 app.use(session({
-  secret: 'your-secret-key',
+  store: new SQLiteStore({
+    dir: '/var/data',           // Make sure this matches your Render disk mount path
+    db: 'sessions.sqlite',      // Session file name
+  }),
+  secret: process.env.SESSION_SECRET || 'your-secret-key',
   resave: false,
-  saveUninitialized: true
+  saveUninitialized: false,
+  cookie: {
+    maxAge: 1000 * 60 * 60 * 24, // 1 day
+    secure: process.env.NODE_ENV === 'production',
+    sameSite: 'lax',
+  }
 }));
 
 // Serve login page
