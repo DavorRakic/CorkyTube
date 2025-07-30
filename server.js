@@ -375,7 +375,6 @@ app.post('/api/sync-youtube', authenticateToken, isAdmin, async (req, res) => {
 				video.snippet.publishedAt
 			  );
 			});
-			;
 
             stmt.finalize(err => {
                 if (err) {
