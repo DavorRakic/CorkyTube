@@ -381,7 +381,7 @@ app.post('/api/sync-youtube', authenticateToken, isAdmin, async (req, res) => {
                       cleanedTitle = cleanedTitle.replace(/#\w+/g, '').replace(/\s+/g, ' ').trim(); // Remove hashtags and normalize spaces
                   }
 				*/
-				let cleanedTitle = video.snippet.title.replace(/#\w+/g, '').replace(/\s+/g, ' ').trim();
+				//let cleanedTitle = video.snippet.title.replace(/#\w+/g, '').replace(/\s+/g, ' ').trim();
 				
                 stmt.run(
                     video.id,
