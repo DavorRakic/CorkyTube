@@ -349,51 +349,33 @@ app.post('/api/sync-youtube', authenticateToken, isAdmin, async (req, res) => {
             `);
             
             allVideos.forEach(video => {
-                //console.log(`Processing video: ${video.id} - ${video.snippet.title}`);
-				if (!video.contentDetails || !video.contentDetails.duration) {
-					console.warn(`Missing duration for video ${video.id}`);
-				}
-				//--------------------------------------------------------------------
-				let cleanedTitle = video.snippet.title.replace(/#\w+/g, '').replace(/\s+/g, ' ').trim();
-				let type = 'video'; // default
+			  let cleanedTitle = video.snippet.title.replace(/#\w+/g, '').replace(/\s+/g, ' ').trim();
+			  let type = 'video'; // default
 
-				if (!video.contentDetails || !video.contentDetails.duration) {
-				  console.warn(`Missing duration for video ${video.id}`);
-				  cleanedTitle += ' (NO DURATION ON YT)';
-				} else {
-				  const durationISO = video.contentDetails.duration;
-				  const match = durationISO.match(/PT(\d+H)?(\d+M)?(\d+S)?/);
-				  const minutes = match[2] ? parseInt(match[2]) : 0;
-				  const seconds = match[3] ? parseInt(match[3]) : 0;
-				  const isShort = minutes === 1 || (minutes === 0 && seconds <= 60);
-				  type = isShort ? 'short' : 'video';
-				}
+			  if (!video.contentDetails || !video.contentDetails.duration) {
+				console.warn(`Missing duration for video ${video.id}`);
+				cleanedTitle += ' (NO DURATION ON YT)';
+			  } else {
+				const durationISO = video.contentDetails.duration;
+				const match = durationISO.match(/PT(\d+H)?(\d+M)?(\d+S)?/);
+				const minutes = match[2] ? parseInt(match[2]) : 0;
+				const seconds = match[3] ? parseInt(match[3]) : 0;
+				const isShort = minutes === 1 || (minutes === 0 && seconds <= 60);
+				type = isShort ? 'short' : 'video';
+			  }
 
-				//--------------------------------------------------------------------
-				//const durationISO = video.contentDetails.duration;
-				//const match = durationISO.match(/PT(\d+H)?(\d+M)?(\d+S)?/);
-				//const minutes = match[2] ? parseInt(match[2]) : 0;
-				//const seconds = match[3] ? parseInt(match[3]) : 0;
-				//const isShort = minutes === 1 || (minutes === 0 && seconds <= 60);
-				
-                /*let cleanedTitle = video.snippet.title;
-                  if (isShort) {
-                      cleanedTitle = cleanedTitle.replace(/#\w+/g, '').replace(/\s+/g, ' ').trim(); // Remove hashtags and normalize spaces
-                  }
-				*/
-				//let cleanedTitle = video.snippet.title.replace(/#\w+/g, '').replace(/\s+/g, ' ').trim();
-				
-                stmt.run(
-                    video.id,
-                    cleanedTitle,
-                    video.snippet.thumbnails.high.url,
-                    video.statistics.viewCount || 0,
-                    video.statistics.likeCount || 0,
-                    video.statistics.commentCount || 0,
-                    isShort ? 'short' : 'video',
-                    video.snippet.publishedAt
-                );
-            });
+			  stmt.run(
+				video.id,
+				cleanedTitle,
+				video.snippet.thumbnails.high.url,
+				video.statistics.viewCount || 0,
+				video.statistics.likeCount || 0,
+				video.statistics.commentCount || 0,
+				type,
+				video.snippet.publishedAt
+			  );
+			});
+			;
 
             stmt.finalize(err => {
                 if (err) {
