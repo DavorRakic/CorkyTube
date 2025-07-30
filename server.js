@@ -358,12 +358,13 @@ app.post('/api/sync-youtube', authenticateToken, isAdmin, async (req, res) => {
 				let seconds = match?.[3] ? parseInt(match[3]) : 0;
 				let isShort = minutes === 1 || (minutes === 0 && seconds <= 60);
 
-				// Flag videos with missing duration
-				let cleanedTitle = video.snippet.title.replace(/#\w+/g, '').replace(/\s+/g, ' ').trim();
+				// If duration is missing, assume it's a regular video
 				if (!video.contentDetails?.duration) {
-				  cleanedTitle = `[NO DURATION] ${cleanedTitle}`;
-				  console.warn(`Missing duration for video ${video.id}, flagged in title.`);
+				  console.warn(`Missing duration for video ${video.id}, defaulting to 'video'`);
+				  cleanedTitle += ' (NO DURATION ON YT)';
+				  isShort = false;
 				}
+
 
 			  stmt.run(
 				video.id,
