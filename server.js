@@ -77,7 +77,7 @@ const db = new sqlite3.Database('./corkytube.db' , (err) => {
         return console.error('Error opening database', err.message);
     }
     console.log('Connected to the SQLite database.');
-
+/*
     db.serialize(() => {
         // Create Tables
         db.run(`CREATE TABLE IF NOT EXISTS users ( id INTEGER PRIMARY KEY AUTOINCREMENT, username TEXT UNIQUE NOT NULL, password TEXT NOT NULL, role TEXT DEFAULT 'user', temp_password_active BOOLEAN DEFAULT 0)`);
@@ -113,6 +113,7 @@ const db = new sqlite3.Database('./corkytube.db' , (err) => {
             }
         });
     });
+*/
 }); 
 
 
