@@ -353,15 +353,28 @@ app.post('/api/sync-youtube', authenticateToken, isAdmin, async (req, res) => {
 				if (!video.contentDetails || !video.contentDetails.duration) {
 					console.warn(`Missing duration for video ${video.id}`);
 				}
+				//--------------------------------------------------------------------
+				let cleanedTitle = video.snippet.title.replace(/#\w+/g, '').replace(/\s+/g, ' ').trim();
+				let type = 'video'; // default
+
 				if (!video.contentDetails || !video.contentDetails.duration) {
-					console.log(`Skipped video: ${video.id} - ${video.snippet.title}`);
-					return;
+				  console.warn(`Missing duration for video ${video.id}`);
+				  cleanedTitle += ' (NO DURATION ON YT)';
+				} else {
+				  const durationISO = video.contentDetails.duration;
+				  const match = durationISO.match(/PT(\d+H)?(\d+M)?(\d+S)?/);
+				  const minutes = match[2] ? parseInt(match[2]) : 0;
+				  const seconds = match[3] ? parseInt(match[3]) : 0;
+				  const isShort = minutes === 1 || (minutes === 0 && seconds <= 60);
+				  type = isShort ? 'short' : 'video';
 				}
-				const durationISO = video.contentDetails.duration;
-				const match = durationISO.match(/PT(\d+H)?(\d+M)?(\d+S)?/);
-				const minutes = match[2] ? parseInt(match[2]) : 0;
-				const seconds = match[3] ? parseInt(match[3]) : 0;
-				const isShort = minutes === 1 || (minutes === 0 && seconds <= 60);
+
+				//--------------------------------------------------------------------
+				//const durationISO = video.contentDetails.duration;
+				//const match = durationISO.match(/PT(\d+H)?(\d+M)?(\d+S)?/);
+				//const minutes = match[2] ? parseInt(match[2]) : 0;
+				//const seconds = match[3] ? parseInt(match[3]) : 0;
+				//const isShort = minutes === 1 || (minutes === 0 && seconds <= 60);
 				
                 /*let cleanedTitle = video.snippet.title;
                   if (isShort) {
