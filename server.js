@@ -349,20 +349,21 @@ app.post('/api/sync-youtube', authenticateToken, isAdmin, async (req, res) => {
             `);
             
             allVideos.forEach(video => {
-			  let cleanedTitle = video.snippet.title.replace(/#\w+/g, '').replace(/\s+/g, ' ').trim();
-			  let type = 'video'; // default
+				//let cleanedTitle = video.snippet.title.replace(/#\w+/g, '').replace(/\s+/g, ' ').trim();
+				let type = 'video'; // default
 
-			  if (!video.contentDetails || !video.contentDetails.duration) {
-				console.warn(`Missing duration for video ${video.id}`);
-				cleanedTitle += ' (NO DURATION ON YT)';
-			  } else {
-				const durationISO = video.contentDetails.duration;
-				const match = durationISO.match(/PT(\d+H)?(\d+M)?(\d+S)?/);
-				const minutes = match[2] ? parseInt(match[2]) : 0;
-				const seconds = match[3] ? parseInt(match[3]) : 0;
-				const isShort = minutes === 1 || (minutes === 0 && seconds <= 60);
-				type = isShort ? 'short' : 'video';
-			  }
+				let durationISO = video.contentDetails?.duration || '';
+				let match = durationISO.match(/PT(\d+H)?(\d+M)?(\d+S)?/);
+				let minutes = match?.[2] ? parseInt(match[2]) : 0;
+				let seconds = match?.[3] ? parseInt(match[3]) : 0;
+				let isShort = minutes === 1 || (minutes === 0 && seconds <= 60);
+
+				// Flag videos with missing duration
+				let cleanedTitle = video.snippet.title.replace(/#\w+/g, '').replace(/\s+/g, ' ').trim();
+				if (!video.contentDetails?.duration) {
+				  cleanedTitle = `[NO DURATION] ${cleanedTitle}`;
+				  console.warn(`Missing duration for video ${video.id}, flagged in title.`);
+				}
 
 			  stmt.run(
 				video.id,
