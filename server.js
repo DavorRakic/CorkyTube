@@ -86,7 +86,7 @@ const db = new sqlite3.Database('./corkytube.db' , (err) => {
         db.run(`CREATE TABLE IF NOT EXISTS youtube_content ( id TEXT PRIMARY KEY, title TEXT NOT NULL, thumbnail TEXT NOT NULL, views INTEGER DEFAULT 0, likes INTEGER DEFAULT 0, comments INTEGER DEFAULT 0, type TEXT NOT NULL, published_at DATETIME NOT NULL)`);
         db.run(`CREATE TABLE IF NOT EXISTS channel_stats ( id INTEGER PRIMARY KEY CHECK (id = 1), subscribers_count INTEGER, last_updated TEXT, patreons_list TEXT)`);
         db.run(`CREATE TABLE IF NOT EXISTS online_users ( user_id INTEGER PRIMARY KEY, username TEXT NOT NULL, login_time TEXT NOT NULL)`);
-
+*/
         // Setup Admins
 		//const admins = JSON.parse(process.env.ADMINS_LIST);
 		let admins = [];
@@ -112,7 +112,7 @@ const db = new sqlite3.Database('./corkytube.db' , (err) => {
                 stmt.finalize();
             }
         });
-    });
+/*    });
 */
 }); 
 
