@@ -19,5 +19,3 @@ services:
     plan: free
     repo: https://github.com/DavorRakic/CorkyTube
     autoDeploy: true
-
-
