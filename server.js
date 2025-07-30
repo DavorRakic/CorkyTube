@@ -349,34 +349,34 @@ app.post('/api/sync-youtube', authenticateToken, isAdmin, async (req, res) => {
             `);
             
             allVideos.forEach(video => {
-				let cleanedTitle = video.snippet.title.replace(/#\w+/g, '').replace(/\s+/g, ' ').trim();
-				let type = 'video'; // default
+				  let cleanedTitle = video.snippet.title.replace(/#\w+/g, '').replace(/\s+/g, ' ').trim();
 
-				let durationISO = video.contentDetails?.duration || '';
-				let match = durationISO.match(/PT(\d+H)?(\d+M)?(\d+S)?/);
-				let minutes = match?.[2] ? parseInt(match[2]) : 0;
-				let seconds = match?.[3] ? parseInt(match[3]) : 0;
-				let isShort = minutes === 1 || (minutes === 0 && seconds <= 60);
+				  let durationISO = video.contentDetails?.duration || '';
+				  let match = durationISO.match(/PT(\d+H)?(\d+M)?(\d+S)?/);
+				  let minutes = match?.[2] ? parseInt(match[2]) : 0;
+				  let seconds = match?.[3] ? parseInt(match[3]) : 0;
+				  let isShort = minutes === 1 || (minutes === 0 && seconds <= 60);
 
-				// If duration is missing, assume it's a regular video
-				if (!video.contentDetails?.duration) {
-				  console.warn(`Missing duration for video ${video.id}, defaulting to 'video'`);
-				  cleanedTitle += ' (NO DURATION ON YT)';
-				  isShort = false;
-				}
+				  if (!video.contentDetails?.duration) {
+					console.warn(`Missing duration for video ${video.id}, defaulting to 'video'`);
+					cleanedTitle += ' (NO DURATION ON YT)';
+					isShort = false;
+				  }
 
+				  let type = isShort ? 'short' : 'video';
 
-			  stmt.run(
-				video.id,
-				cleanedTitle,
-				video.snippet.thumbnails.high.url,
-				video.statistics.viewCount || 0,
-				video.statistics.likeCount || 0,
-				video.statistics.commentCount || 0,
-				type,
-				video.snippet.publishedAt
-			  );
-			});
+				  stmt.run(
+					video.id,
+					cleanedTitle,
+					video.snippet.thumbnails.high.url,
+					video.statistics.viewCount || 0,
+					video.statistics.likeCount || 0,
+					video.statistics.commentCount || 0,
+					type,
+					video.snippet.publishedAt
+				  );
+				});
+
 
             stmt.finalize(err => {
                 if (err) {
