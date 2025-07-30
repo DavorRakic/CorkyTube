@@ -348,14 +348,14 @@ app.post('/api/sync-youtube', authenticateToken, isAdmin, async (req, res) => {
             `);
             
             allVideos.forEach(video => {
-                console.log(`Processing video: ${video.id} - ${video.snippet.title}`);
+                //console.log(`Processing video: ${video.id} - ${video.snippet.title}`);
 				if (!video.contentDetails || !video.contentDetails.duration) {
 					console.warn(`Missing duration for video ${video.id}`);
 				}
-				if (!video.contentDetails || !video.contentDetails.duration) return;
-                  /*const duration = video.contentDetails?.duration || '';
-				    const isShort = duration.includes('M') ? false : true; // Simple check
-				  */
+				if (!video.contentDetails || !video.contentDetails.duration) {
+					console.log(`Skipped video: ${video.id} - ${video.snippet.title}`);
+					return;
+				}
 				const durationISO = video.contentDetails.duration;
 				const match = durationISO.match(/PT(\d+H)?(\d+M)?(\d+S)?/);
 				const minutes = match[2] ? parseInt(match[2]) : 0;
