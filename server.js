@@ -349,7 +349,7 @@ app.post('/api/sync-youtube', authenticateToken, isAdmin, async (req, res) => {
             `);
             
             allVideos.forEach(video => {
-				//let cleanedTitle = video.snippet.title.replace(/#\w+/g, '').replace(/\s+/g, ' ').trim();
+				let cleanedTitle = video.snippet.title.replace(/#\w+/g, '').replace(/\s+/g, ' ').trim();
 				let type = 'video'; // default
 
 				let durationISO = video.contentDetails?.duration || '';
