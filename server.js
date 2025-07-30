@@ -89,7 +89,7 @@ const db = new sqlite3.Database('/var/data/corkytube.db' , (err) => {
 */
         // Setup Admins
 		//const admins = JSON.parse(process.env.ADMINS_LIST);
-		let admins = [];
+/*		let admins = [];
 		try {
 		  admins = JSON.parse(process.env.ADMINS_LIST || '[]');
 		} catch (err) {
@@ -102,9 +102,9 @@ const db = new sqlite3.Database('/var/data/corkytube.db' , (err) => {
                 db.run(`INSERT INTO users (username, password, role, temp_password_active) VALUES (?, ?, 'admin', 0) ON CONFLICT(username) DO UPDATE SET password = excluded.password, role = excluded.role, temp_password_active = excluded.temp_password_active`, [admin.username, hash]);
             });
         });
-
+*/
         // Initial Patreons
-        db.get("SELECT COUNT(*) as count FROM patreons", (err, row) => {
+/*        db.get("SELECT COUNT(*) as count FROM patreons", (err, row) => {
             if (row && row.count === 0) {
                 const initialPatreons = ['michael', 'paul', 'daniele', 'dora', 'davor', 'corky', 'kico'];
                 const stmt = db.prepare("INSERT OR IGNORE INTO patreons (username) VALUES (?)");
@@ -112,6 +112,7 @@ const db = new sqlite3.Database('/var/data/corkytube.db' , (err) => {
                 stmt.finalize();
             }
         });
+*/
 /*    });
 */
 }); 
