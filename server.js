@@ -320,19 +320,23 @@ app.post('/api/sync-youtube', authenticateToken, isAdmin, async (req, res) => {
         console.log('Channel stats synced.');
 
         // 2. Fetch all videos and shorts from the channel
+        const channelDetailsUrl = `https://www.googleapis.com/youtube/v3/channels?part=contentDetails&id=${CHANNEL_ID}&key=${API_KEY}`;
+        const channelDetailsData = await fetchJson(channelDetailsUrl);
+        const uploadsPlaylistId = channelDetailsData.items[0].contentDetails.relatedPlaylists.uploads;
+
         let allVideos = [];
         let nextPageToken = '';
         do {
-            const searchUrl = `https://www.googleapis.com/youtube/v3/search?part=snippet&channelId=${CHANNEL_ID}&maxResults=50&order=date&type=video&pageToken=${nextPageToken}&key=${API_KEY}`;
-            const searchData = await fetchJson(searchUrl);
+            const playlistUrl = `https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&playlistId=${uploadsPlaylistId}&maxResults=50&pageToken=${nextPageToken}&key=${API_KEY}`;
+            const playlistData = await fetchJson(playlistUrl);
             
-            const videoIds = searchData.items.map(item => item.id.videoId).join(',');
+            const videoIds = playlistData.items.map(item => item.snippet.resourceId.videoId).join(',');
             if (videoIds) {
                 const videoDetailsUrl = `https://www.googleapis.com/youtube/v3/videos?part=snippet,statistics,contentDetails&id=${videoIds}&key=${API_KEY}`;
                 const videoDetailsData = await fetchJson(videoDetailsUrl);
                 allVideos.push(...videoDetailsData.items);
             }
-            nextPageToken = searchData.nextPageToken;
+            nextPageToken = playlistData.nextPageToken;
         } while (nextPageToken);
         
         console.log(`Found ${allVideos.length} total content items.`);
