@@ -364,7 +364,7 @@ app.post('/api/sync-youtube', authenticateToken, isAdmin, async (req, res) => {
 				  if (!video.contentDetails?.duration) {
 					console.warn(`Missing duration for video ${video.id}, defaulting to 'video'`);
 					cleanedTitle += ' (NO DURATION ON YT)';
-					isShort = true;
+					isShort = false;
 				  }
 
 				  let type = isShort ? 'short' : 'video';
